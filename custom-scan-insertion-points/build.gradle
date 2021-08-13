@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+compileJava.options.encoding = "UTF-8"
+
+dependencies {
+    implementation 'net.portswigger.burp.extender:burp-extender-api:2.1'
+}
+
+task fatJar(type: Jar) {
+    archivesBaseName = rootProject.name + "-all"
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
